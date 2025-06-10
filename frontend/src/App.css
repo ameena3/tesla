@@ -1,0 +1,237 @@
+/* Global Resets and Base Styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+.App {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #1a202c;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.75em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.25em;
+}
+
+/* Buttons */
+button {
+  background-color: #4299e1; /* blue-500 */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #3182ce; /* blue-600 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button:disabled {
+  background-color: #a0aec0; /* gray-400 */
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid #cbd5e0; /* gray-300 */
+  border-radius: 5px;
+  font-size: 1em;
+  margin-right: 10px;
+  min-width: 250px;
+  box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
+
+/* Dashboard Specific */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e2e8f0; /* gray-200 */
+}
+
+.dashboard-header h1 {
+  margin-bottom: 0; /* Reset margin for h1 in header */
+}
+
+.status-message {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: 500;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 0.9;
+}
+
+.status-message:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.status-message.dev {
+  background-color: #fffbea; /* yellow-100 */
+  color: #b45309; /* yellow-700 */
+  border: 1px solid #fef3c7; /* yellow-200 */
+}
+
+.status-message.real-active {
+  background-color: #f0fff4; /* green-50 */
+  color: #2f855a; /* green-700 */
+  border: 1px solid #c6f6d5; /* green-200 */
+}
+
+.status-message.real-inactive {
+  background-color: #fff5f5; /* red-50 */
+  color: #c53030; /* red-700 */
+  border: 1px solid #fed7d7; /* red-200 */
+}
+
+
+/* Component Sections (Cards) */
+.component-section {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.component-section:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08), 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.component-section h2 {
+  margin-top: 0;
+  color: #2d3748; /* gray-700 */
+}
+
+/* API Key Input Form */
+.api-key-form {
+  padding: 25px;
+  background-color: #fffff0; /* Light yellow, less intense */
+  border: 1px solid #f1e7bc;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.api-key-form h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #713f12; /* yellow-800 */
+}
+
+.api-key-form input[type="password"] { /* More specific selector */
+  margin-bottom: 15px;
+  width: 100%; /* Make input take full width of form */
+  max-width: 400px; /* But not too wide */
+}
+.api-key-form button {
+    width: auto;
+    min-width: 120px;
+}
+
+
+/* Messages within components */
+.message {
+  margin-top: 15px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 0.95em;
+  text-align: center;
+}
+.message.success {
+  background-color: #d1fae5; /* Tailwind green-100 */
+  color: #065f46; /* Tailwind green-800 */
+  border: 1px solid #a7f3d0; /* Tailwind green-200 */
+}
+.message.error {
+  background-color: #fee2e2; /* Tailwind red-100 */
+  color: #991b1b; /* Tailwind red-800 */
+  border: 1px solid #fecaca; /* Tailwind red-200 */
+}
+.message.info { /* General info/warning for controls */
+  background-color: #ffedd5; /* Tailwind orange-100 */
+  color: #9a3412;    /* Tailwind orange-800 */
+  border: 1px solid #fed7aa; /* Tailwind orange-200 */
+}
+
+
+/* Camera Feed */
+.camera-feed {
+    text-align: center; /* Center the image */
+}
+.camera-feed img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e2e8f0; /* gray-200 */
+  border-radius: 6px;
+  margin-top: 10px;
+  background-color: #f7fafc; /* gray-50 for placeholder */
+}
+
+/* Loading/Error/Info states text */
+.loading-text, .error-text, .info-text {
+  font-style: italic;
+  color: #718096; /* gray-500 */
+  margin: 10px 0; /* Give some space */
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+}
+.error-text {
+  color: #c53030; /* red-600 */
+  background-color: #fff5f5; /* red-50 */
+  border: 1px solid #fed7d7; /* red-200 */
+  font-weight: bold;
+}
+.info-text {
+    background-color: #ebf4ff; /* blue-50 */
+    color: #4c51bf; /* indigo-600 */
+    border: 1px solid #c3dafe; /* blue-200 */
+}
+
+pre {
+  background-color: #edf2f7; /* gray-100 */
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto; /* Allow horizontal scrolling for long lines */
+  font-size: 0.9em;
+  color: #2d3748; /* gray-700 */
+}
