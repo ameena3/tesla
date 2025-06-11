@@ -1,9 +1,9 @@
 package middleware
 
 import (
+	"github.com/ameena3/tesla/backend/handlers" // For WriteJsonResponse
 	"net/http"
 	"os" // For getting API key from environment variable
-	"tesla-dashboard/backend/handlers" // For WriteJsonResponse
 )
 
 // APIKeyAuthMiddleware protects routes that require a valid API key.

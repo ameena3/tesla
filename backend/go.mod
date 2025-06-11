@@ -1,3 +1,3 @@
-module tesla-dashboard/backend
+module github.com/ameena3/tesla/backend
 
-go 1.22.2
+go 1.24.2

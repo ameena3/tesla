@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/ameena3/tesla/backend/tesla" // Adjusted import path
 	"net/http"
-	"tesla-dashboard/backend/tesla" // Adjusted import path
 )
 
 var mockClient tesla.Client = tesla.NewMockClient()
+
 // realClient will be initialized later, possibly with an API key from config/env
 // var realClient tesla.Client = tesla.NewRealClient("YOUR_TESLA_API_KEY_HERE_OR_FROM_ENV")
 
@@ -66,7 +67,6 @@ func DevGetCameraFeedHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	WriteJsonResponse(w, http.StatusOK, map[string]string{"camera_feed_url": feedURL})
 }
-
 
 // TODO: Implement handlers for real API by initializing and using realClient
 // GetStatsHandler, LockVehicleHandler, UnlockVehicleHandler, GetCameraFeedHandler

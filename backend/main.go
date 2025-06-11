@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/ameena3/tesla/backend/handlers"
+	"github.com/ameena3/tesla/backend/middleware"
+	"github.com/ameena3/tesla/backend/tesla" // Required for initializing real client later
 	"log"
 	"net/http"
 	"os" // Required for initializing real client later
-	"tesla-dashboard/backend/handlers"
-	"tesla-dashboard/backend/middleware"
-	"tesla-dashboard/backend/tesla" // Required for initializing real client later
 )
 
 var realTeslaClient tesla.Client // Declare at package level
@@ -26,7 +26,6 @@ func main() {
 		// We can let it be nil, and the handlers should check or we can use a mock client for real endpoints too if no key
 		// For now, the handlers for real endpoints are placeholders.
 	}
-
 
 	// Dev API routes (no auth needed)
 	http.HandleFunc("/api/dev/stats", handlers.DevGetStatsHandler)
@@ -47,7 +46,6 @@ func main() {
 	http.HandleFunc("/api/lock", middleware.APIKeyAuthMiddleware(handlers.LockVehicleHandler))
 	http.HandleFunc("/api/unlock", middleware.APIKeyAuthMiddleware(handlers.UnlockVehicleHandler))
 	http.HandleFunc("/api/camera", middleware.APIKeyAuthMiddleware(handlers.GetCameraFeedHandler))
-
 
 	fmt.Println("Starting server on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {

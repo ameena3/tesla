@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"encoding/json"
+	"github.com/ameena3/tesla/backend/tesla" // Ensure correct import path
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
-	"tesla-dashboard/backend/tesla" // Ensure correct import path
 )
 
 func TestDevGetStatsHandler(t *testing.T) {
