@@ -119,3 +119,98 @@ func TestDevGetCameraFeedHandler(t *testing.T) {
 		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expectedBody)
 	}
 }
+
+// Tests for Real API Handlers when realClient is not initialized
+
+const expectedUnavailableErrorMessage = `{"error":"Real Tesla client not initialized. Check server configuration."}`
+
+func TestGetStatsHandler_RealClientUnavailable(t *testing.T) {
+	originalRealClient := realClient
+	realClient = nil
+	defer func() { realClient = originalRealClient }()
+
+	req, err := http.NewRequest("GET", "/api/stats", nil) // Path doesn't matter here
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetStatsHandler)
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusServiceUnavailable {
+		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusServiceUnavailable)
+	}
+
+	if strings.TrimSpace(rr.Body.String()) != expectedUnavailableErrorMessage {
+		t.Errorf("handler returned unexpected body: got %q want %q", rr.Body.String(), expectedUnavailableErrorMessage)
+	}
+}
+
+func TestLockVehicleHandler_RealClientUnavailable(t *testing.T) {
+	originalRealClient := realClient
+	realClient = nil
+	defer func() { realClient = originalRealClient }()
+
+	req, err := http.NewRequest("POST", "/api/lock", nil) // Path doesn't matter here
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(LockVehicleHandler)
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusServiceUnavailable {
+		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusServiceUnavailable)
+	}
+	if strings.TrimSpace(rr.Body.String()) != expectedUnavailableErrorMessage {
+		t.Errorf("handler returned unexpected body: got %q want %q", rr.Body.String(), expectedUnavailableErrorMessage)
+	}
+}
+
+func TestUnlockVehicleHandler_RealClientUnavailable(t *testing.T) {
+	originalRealClient := realClient
+	realClient = nil
+	defer func() { realClient = originalRealClient }()
+
+	req, err := http.NewRequest("POST", "/api/unlock", nil) // Path doesn't matter here
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(UnlockVehicleHandler)
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusServiceUnavailable {
+		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusServiceUnavailable)
+	}
+
+	if strings.TrimSpace(rr.Body.String()) != expectedUnavailableErrorMessage {
+		t.Errorf("handler returned unexpected body: got %q want %q", rr.Body.String(), expectedUnavailableErrorMessage)
+	}
+}
+
+func TestGetCameraFeedHandler_RealClientUnavailable(t *testing.T) {
+	originalRealClient := realClient
+	realClient = nil
+	defer func() { realClient = originalRealClient }()
+
+	req, err := http.NewRequest("GET", "/api/camera", nil) // Path doesn't matter here
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetCameraFeedHandler)
+	handler.ServeHTTP(rr, req)
+
+	if status := rr.Code; status != http.StatusServiceUnavailable {
+		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusServiceUnavailable)
+	}
+
+	if strings.TrimSpace(rr.Body.String()) != expectedUnavailableErrorMessage {
+		t.Errorf("handler returned unexpected body: got %q want %q", rr.Body.String(), expectedUnavailableErrorMessage)
+	}
+}

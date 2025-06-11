@@ -88,17 +88,19 @@
   --background-color: #0f172a; /* Dark blue slate-900 */
   --text-color: #e2e8f0; /* Tailwind gray-200 */
   --primary-color: #38bdf8; /* Tailwind sky-400 */
+  --primary-color-rgb: 56, 189, 248; /* For use in rgba values */
   --primary-hover-color: #0ea5e9; /* Tailwind sky-500 */
   --button-text-color: #fff;
-  --card-background-color: rgba(30, 41, 59, 0.6); /* Semi-transparent slate-800 for general cards */
-  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(56, 189, 248, 0.2); /* Subtle glow */
+  --card-background-color: rgba(30, 41, 59, 0.65); /* Semi-transparent slate-800 for general cards, slightly more opaque */
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(var(--primary-color-rgb), 0.25); /* Subtle glow with primary color */
   --button-hover-shadow: 0 2px 4px rgba(0,0,0,0.25);
-  --component-hover-shadow: 0 5px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(56, 189, 248, 0.4);
+  --component-hover-shadow: 0 5px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(var(--primary-color-rgb), 0.45);
   --heading-color: #f8fafc; /* Tailwind slate-50 */
-  --border-color: rgba(56, 189, 248, 0.2); /* Sky-400 with opacity for general borders */
-  --input-border-color: rgba(56, 189, 248, 0.4);
+  --border-color: rgba(var(--primary-color-rgb), 0.25); /* Sky-400 with opacity for general borders */
+  --input-background-color-liquid: rgba(15, 23, 42, 0.75); /* Darker, more opaque for inputs */
+  --input-border-color-liquid: rgba(var(--primary-color-rgb), 0.5);
   --input-focus-border-color: var(--primary-color);
-  --input-focus-shadow: 0 0 0 3px rgba(56, 189, 248, 0.4); /* Adjusted alpha for liquid primary */
+  --input-focus-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.45); /* Adjusted alpha for liquid primary */
   --disabled-color: #334155; /* Tailwind slate-700 for bg */
   --disabled-text-color: #94a3b8; /* Tailwind slate-400 for text */
   --header-text-color: #f8fafc;
@@ -226,6 +228,14 @@ input[type="password"] {
   transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
+[data-theme="liquid"] input[type="text"],
+[data-theme="liquid"] input[type="password"] {
+  background-color: var(--input-background-color-liquid);
+  border-color: var(--input-border-color-liquid);
+  color: var(--text-color); /* Should be light from theme */
+}
+
+
 input[type="text"]:focus,
 input[type="password"]:focus {
   outline: none;
@@ -262,6 +272,25 @@ input[type="password"]:focus {
 }
 .theme-switcher span {
   color: var(--text-color); /* Theme label text color */
+}
+
+[data-theme="liquid"] .dashboard-header button {
+  background-color: rgba(var(--primary-color-rgb), 0.15); /* Translucent primary */
+  border: 1px solid rgba(var(--primary-color-rgb), 0.5);
+  color: var(--primary-color); /* Text color same as border/accent */
+}
+
+[data-theme="liquid"] .dashboard-header button:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.3);
+  border-color: rgba(var(--primary-color-rgb), 0.7);
+  color: #fff; /* Brighter text on hover */
+  box-shadow: var(--button-hover-shadow);
+}
+
+[data-theme="liquid"] .dashboard-header button:disabled {
+  background-color: rgba(var(--disabled-color-rgb, 51, 65, 85), 0.2); /* Use disabled color with opacity */
+  border-color: rgba(var(--disabled-color-rgb, 51, 65, 85), 0.4);
+  color: var(--disabled-text-color);
 }
 
 
