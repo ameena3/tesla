@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import StatsDisplay from './StatsDisplay';
 import Controls from './Controls';
 import CameraView from './CameraView';
 import ApiKeyInput from './ApiKeyInput';
+import { ThemeContext } from '../contexts/ThemeContext'; // Adjusted path
 
 const DashboardPage = () => {
+  const { theme, changeTheme } = useContext(ThemeContext);
   const [apiKey, setApiKey] = useState('');
   const [isDevMode, setIsDevMode] = useState(() => {
     const savedMode = localStorage.getItem('isDevMode');
@@ -69,9 +71,17 @@ const DashboardPage = () => {
     <div>
       <header className="dashboard-header">
         <h1>Tesla Dashboard</h1>
-        <button onClick={toggleDevMode}>
-          Switch to {isDevMode ? 'Real API Mode' : 'Developer Mode'}
-        </button>
+        <div className="header-controls">
+          <button onClick={toggleDevMode}>
+            Switch to {isDevMode ? 'Real API Mode' : 'Developer Mode'}
+          </button>
+          <div className="theme-switcher">
+            <span>Theme: </span>
+            <button onClick={() => changeTheme('light')} disabled={theme === 'light'}>Light</button>
+            <button onClick={() => changeTheme('dark')} disabled={theme === 'dark'}>Dark</button>
+            <button onClick={() => changeTheme('liquid')} disabled={theme === 'liquid'}>Liquid Glass</button>
+          </div>
+        </div>
       </header>
 
       {isDevMode && <p className="status-message dev">Developer Mode Active (Using Mock Data)</p>}
