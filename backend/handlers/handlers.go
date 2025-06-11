@@ -2,14 +2,39 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/ameena3/tesla/backend/tesla" // Adjusted import path
+	"log"
 	"net/http"
+	"os"
 )
 
 var mockClient tesla.Client = tesla.NewMockClient()
+var realClient tesla.Client
 
-// realClient will be initialized later, possibly with an API key from config/env
-// var realClient tesla.Client = tesla.NewRealClient("YOUR_TESLA_API_KEY_HERE_OR_FROM_ENV")
+// initializeRealClient attempts to initialize the real Tesla client.
+// It expects TESLA_VIN environment variable to be set.
+// Other credentials (TESLA_KEY_NAME, TESLA_TOKEN_NAME, TESLA_CACHE_FILE)
+// are expected by the tesla.NewRealClient via pkg/cli.
+func initializeRealClient() {
+	vin := os.Getenv("TESLA_VIN")
+	if vin == "" {
+		log.Println("TESLA_VIN environment variable not set. Real Tesla client will not be available.")
+		return
+	}
+
+	client, err := tesla.NewRealClient(vin)
+	if err != nil {
+		log.Printf("Error initializing real Tesla client for VIN %s: %v. Real client will not be available.", vin, err)
+		return
+	}
+	realClient = client
+	log.Println("Real Tesla client initialized successfully for VIN:", vin)
+}
+
+func init() {
+	initializeRealClient()
+}
 
 // WriteJsonResponse is a helper to write JSON responses
 func WriteJsonResponse(w http.ResponseWriter, statusCode int, data interface{}) {
@@ -68,21 +93,18 @@ func DevGetCameraFeedHandler(w http.ResponseWriter, r *http.Request) {
 	WriteJsonResponse(w, http.StatusOK, map[string]string{"camera_feed_url": feedURL})
 }
 
-// TODO: Implement handlers for real API by initializing and using realClient
-// GetStatsHandler, LockVehicleHandler, UnlockVehicleHandler, GetCameraFeedHandler
-// These will be very similar to the Dev handlers but will use the realClient.
-// They will also need to be protected by API key middleware.
-
-// Real API Handlers (Placeholders)
-// These will use a real Tesla client, initialized with an API key.
-// For now, they are stubs. A global or context-passed realClient would be needed.
-
 // GetStatsHandler handles requests for real vehicle stats.
 func GetStatsHandler(w http.ResponseWriter, r *http.Request) {
-	// TODO: Initialize realClient (e.g., realClient := tesla.NewRealClient(os.Getenv("TESLA_API_KEY")))
-	// stats, err := realClient.GetVehicleStats()
-	// Handle response similar to DevGetStatsHandler
-	WriteJsonResponse(w, http.StatusNotImplemented, map[string]string{"message": "Real GetStatsHandler not implemented yet"})
+	if realClient == nil {
+		WriteJsonResponse(w, http.StatusServiceUnavailable, map[string]string{"error": "Real Tesla client not initialized. Check server configuration."})
+		return
+	}
+	stats, err := realClient.GetVehicleStats()
+	if err != nil {
+		WriteJsonResponse(w, http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error from Tesla API: %v", err)})
+		return
+	}
+	WriteJsonResponse(w, http.StatusOK, stats)
 }
 
 // LockVehicleHandler handles requests to lock the vehicle.
@@ -91,8 +113,16 @@ func LockVehicleHandler(w http.ResponseWriter, r *http.Request) {
 		WriteJsonResponse(w, http.StatusMethodNotAllowed, map[string]string{"error": "Method not allowed"})
 		return
 	}
-	// TODO: Initialize and use realClient
-	WriteJsonResponse(w, http.StatusNotImplemented, map[string]string{"message": "Real LockVehicleHandler not implemented yet"})
+	if realClient == nil {
+		WriteJsonResponse(w, http.StatusServiceUnavailable, map[string]string{"error": "Real Tesla client not initialized. Check server configuration."})
+		return
+	}
+	success, err := realClient.LockVehicle()
+	if err != nil {
+		WriteJsonResponse(w, http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error from Tesla API: %v", err)})
+		return
+	}
+	WriteJsonResponse(w, http.StatusOK, map[string]bool{"success": success})
 }
 
 // UnlockVehicleHandler handles requests to unlock the vehicle.
@@ -101,12 +131,33 @@ func UnlockVehicleHandler(w http.ResponseWriter, r *http.Request) {
 		WriteJsonResponse(w, http.StatusMethodNotAllowed, map[string]string{"error": "Method not allowed"})
 		return
 	}
-	// TODO: Initialize and use realClient
-	WriteJsonResponse(w, http.StatusNotImplemented, map[string]string{"message": "Real UnlockVehicleHandler not implemented yet"})
+	if realClient == nil {
+		WriteJsonResponse(w, http.StatusServiceUnavailable, map[string]string{"error": "Real Tesla client not initialized. Check server configuration."})
+		return
+	}
+	success, err := realClient.UnlockVehicle()
+	if err != nil {
+		WriteJsonResponse(w, http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error from Tesla API: %v", err)})
+		return
+	}
+	WriteJsonResponse(w, http.StatusOK, map[string]bool{"success": success})
 }
 
 // GetCameraFeedHandler handles requests for the real camera feed.
 func GetCameraFeedHandler(w http.ResponseWriter, r *http.Request) {
-	// TODO: Initialize and use realClient
-	WriteJsonResponse(w, http.StatusNotImplemented, map[string]string{"message": "Real GetCameraFeedHandler not implemented yet"})
+	if realClient == nil {
+		WriteJsonResponse(w, http.StatusServiceUnavailable, map[string]string{"error": "Real Tesla client not initialized. Check server configuration."})
+		return
+	}
+	feedURL, err := realClient.GetCameraFeed()
+	if err != nil {
+		// Specific error for camera feed not implemented yet by real client
+		if err.Error() == "GetCameraFeed not yet fully implemented with SDK" {
+			WriteJsonResponse(w, http.StatusNotImplemented, map[string]string{"error": err.Error()})
+		} else {
+			WriteJsonResponse(w, http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("Error from Tesla API: %v", err)})
+		}
+		return
+	}
+	WriteJsonResponse(w, http.StatusOK, map[string]string{"camera_feed_url": feedURL})
 }
