@@ -91,30 +91,30 @@
   --primary-color-rgb: 56, 189, 248; /* For use in rgba values */
   --primary-hover-color: #0ea5e9; /* Tailwind sky-500 */
   --button-text-color: #fff;
-  --card-background-color: rgba(30, 41, 59, 0.65); /* Semi-transparent slate-800 for general cards, slightly more opaque */
-  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(var(--primary-color-rgb), 0.25); /* Subtle glow with primary color */
-  --button-hover-shadow: 0 2px 4px rgba(0,0,0,0.25);
-  --component-hover-shadow: 0 5px 20px rgba(0,0,0,0.25), 0 0 0 1px rgba(var(--primary-color-rgb), 0.45);
+  --card-background-color: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 30%), rgba(30, 41, 59, 0.6); /* Subtle sheen + base */
+  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 0 0.5px rgba(var(--primary-color-rgb), 0.2); /* Softer, wider shadow, thinner glow */
+  --button-hover-shadow: 0 3px 6px rgba(0,0,0,0.2); /* Softer button hover shadow */
+  --component-hover-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 0 1px rgba(var(--primary-color-rgb), 0.35); /* Softer component hover */
   --heading-color: #f8fafc; /* Tailwind slate-50 */
-  --border-color: rgba(var(--primary-color-rgb), 0.25); /* Sky-400 with opacity for general borders */
-  --input-background-color-liquid: rgba(15, 23, 42, 0.75); /* Darker, more opaque for inputs */
-  --input-border-color-liquid: rgba(var(--primary-color-rgb), 0.5);
+  --border-color: rgba(var(--primary-color-rgb), 0.2); /* Fainter border */
+  --input-background-color-liquid: rgba(15, 23, 42, 0.7); /* Darker, more opaque for inputs */
+  --input-border-color-liquid: rgba(var(--primary-color-rgb), 0.4); /* Less prominent input border */
   --input-focus-border-color: var(--primary-color);
-  --input-focus-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.45); /* Adjusted alpha for liquid primary */
+  --input-focus-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.35); /* Less intense focus glow */
   --disabled-color: #334155; /* Tailwind slate-700 for bg */
   --disabled-text-color: #94a3b8; /* Tailwind slate-400 for text */
   --header-text-color: #f8fafc;
   --link-hover-color: var(--primary-hover-color);
 
   /* Liquid Glass Widget Specific Variables */
-  --widget-background-color-liquid: rgba(56, 189, 248, 0.1);  /* Light sky blue, very transparent */
-  --widget-border-color-liquid: rgba(56, 189, 248, 0.25); /* Slightly more opaque sky blue border */
-  --widget-backdrop-filter: blur(10px) saturate(120%);
-  --widget-base-shadow-liquid: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--widget-border-color-liquid);
-  --widget-hover-shadow-liquid: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 0 1.5px var(--widget-border-color-liquid);
+  --widget-background-color-liquid: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 35%), rgba(56, 189, 248, 0.08); /* Subtle sheen + base */
+  --widget-border-color-liquid: rgba(56, 189, 248, 0.2); /* Fainter widget border, aligns with --border-color */
+  --widget-backdrop-filter: blur(12px) saturate(110%);
+  --widget-base-shadow-liquid: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 0 0.5px var(--widget-border-color-liquid); /* Softer widget shadow */
+  --widget-hover-shadow-liquid: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--widget-border-color-liquid); /* Pronounced but soft hover shadow */
   --widget-text-color-liquid: var(--text-color); /* Inherits general light text */
   --widget-heading-color-liquid: var(--heading-color); /* Inherits general light heading */
-  --widget-hover-scale: 1.03;
+  --widget-hover-scale: 1.02; /* More subtle scale on hover */
 
 
   /* Add a subtle background texture or effect if possible */
@@ -281,8 +281,8 @@ input[type="password"]:focus {
 }
 
 [data-theme="liquid"] .dashboard-header button:hover {
-  background-color: rgba(var(--primary-color-rgb), 0.3);
-  border-color: rgba(var(--primary-color-rgb), 0.7);
+  background-color: rgba(var(--primary-color-rgb), 0.25); /* More subtle hover bg */
+  border-color: rgba(var(--primary-color-rgb), 0.5); /* More subtle hover border */
   color: #fff; /* Brighter text on hover */
   box-shadow: var(--button-hover-shadow);
 }
@@ -481,7 +481,7 @@ pre {
 }
 
 [data-theme="liquid"] .widget:hover {
-  transform: scale(var(--widget-hover-scale)) translateY(-3px);
+  transform: scale(var(--widget-hover-scale)) translateY(-2px); /* Subtle lift */
   box-shadow: var(--widget-hover-shadow-liquid);
 }
 
