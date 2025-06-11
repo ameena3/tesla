@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Expose backend port 8080 to host port 8080
+    environment:
+      # The TESLA_API_KEY should be set by the user when running docker-compose up
+      # For example, by creating a .env file in the same directory as docker-compose.yml
+      # with the line: TESLA_API_KEY=your_actual_api_key_here
+      # Or by prefixing the command: TESLA_API_KEY=your_key docker-compose up
+      - TESLA_API_KEY=${TESLA_API_KEY}
+    networks:
+      - tesla-dashboard-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Expose Nginx port 80 (frontend) to host port 3000
+    depends_on:
+      - backend
+    environment:
+      # This environment variable is used at build time by create-react-app if defined in Dockerfile's build stage.
+      # However, to make it truly dynamic or to avoid rebuilding the frontend image just to change the API URL,
+      # a common pattern is to have Nginx proxy API requests or to configure the URL at runtime in the served JS.
+      # For now, we'll rely on the default http://localhost:8080/api in api.js,
+      # which will be proxied by Nginx in the next step if needed, or we can adjust api.js.
+      # A better way for inter-container communication is for the frontend to call the backend service directly by its name.
+      # We will configure Nginx to proxy /api requests to the backend service.
+      # So, REACT_APP_API_BASE_URL in the React app should just be '/api'.
+      # We'll need to create an nginx.conf for this.
+      - NODE_ENV=development # Or production, affects some React behavior. Development is fine for now.
+    networks:
+      - tesla-dashboard-net
+    restart: unless-stopped
+
+networks:
+  tesla-dashboard-net:
+    driver: bridge
+
+# Optional: MongoDB service if we decide to add it later
+# mongodb:
+#   image: mongo:latest
+#   ports:
+#     - "27017:27017"
+#   volumes:
+#     - mongo-data:/data/db
+#   networks:
+#     - tesla-dashboard-net
+
+# volumes:
+#   mongo-data:
