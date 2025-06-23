@@ -84,63 +84,81 @@
   --code-block-text: #e2e8f0; /* gray-200 */
 }
 
-[data-theme="liquid"] {
-  --background-color: #0f172a; /* Dark blue slate-900 */
-  --text-color: #e2e8f0; /* Tailwind gray-200 */
-  --primary-color: #38bdf8; /* Tailwind sky-400 */
-  --primary-color-rgb: 56, 189, 248; /* For use in rgba values */
-  --primary-hover-color: #0ea5e9; /* Tailwind sky-500 */
-  --button-text-color: #fff;
-  --card-background-color: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 30%), rgba(30, 41, 59, 0.6); /* Subtle sheen + base */
-  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 0 0.5px rgba(var(--primary-color-rgb), 0.2); /* Softer, wider shadow, thinner glow */
-  --button-hover-shadow: 0 3px 6px rgba(0,0,0,0.2); /* Softer button hover shadow */
-  --component-hover-shadow: 0 8px 25px rgba(0,0,0,0.2), 0 0 0 1px rgba(var(--primary-color-rgb), 0.35); /* Softer component hover */
-  --heading-color: #f8fafc; /* Tailwind slate-50 */
-  --border-color: rgba(var(--primary-color-rgb), 0.2); /* Fainter border */
-  --input-background-color-liquid: rgba(15, 23, 42, 0.7); /* Darker, more opaque for inputs */
-  --input-border-color-liquid: rgba(var(--primary-color-rgb), 0.4); /* Less prominent input border */
+[data-theme="liquid-glass"] {
+  /* Apple-inspired Liquid Glass Theme */
+  --background-color: #f0f2f5; /* Light, clean background (similar to macOS Monterey/Ventura) */
+  --text-color: #1d1d1f; /* Standard Apple dark text color */
+  --heading-color: #111; /* Slightly darker for headings */
+  --primary-color: #007aff; /* Apple's signature blue */
+  --primary-color-rgb: 0, 122, 255;
+  --primary-hover-color: #005ecb; /* Darker shade for hover */
+  --button-text-color: #fff; /* White text on primary buttons */
+
+  /* Card and Component Styling for Glass Effect */
+  --card-background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white for "frosted glass" */
+  --card-backdrop-filter: blur(20px) saturate(180%);
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0,0,0,0.05); /* Softer, more diffused shadow */
+  --border-color: rgba(0, 0, 0, 0.08); /* Very subtle border, almost invisible */
+
+  /* Input Fields */
+  --input-background-color-liquid: rgba(255, 255, 255, 0.8); /* Slightly more opaque for readability */
+  --input-border-color-liquid: rgba(0, 0, 0, 0.1); /* Subtle border for inputs */
+  --input-text-color-liquid: var(--text-color);
   --input-focus-border-color: var(--primary-color);
-  --input-focus-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.35); /* Less intense focus glow */
-  --disabled-color: #334155; /* Tailwind slate-700 for bg */
-  --disabled-text-color: #94a3b8; /* Tailwind slate-400 for text */
-  --header-text-color: #f8fafc;
+  --input-focus-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.3);
+
+  /* Button Specifics */
+  --button-hover-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  --component-hover-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06);
+
+  /* Disabled State */
+  --disabled-color: #e0e0e0; /* Lighter disabled background */
+  --disabled-text-color: #a0a0a0; /* Muted text for disabled items */
+
+  /* Header and Links */
+  --header-text-color: var(--heading-color);
   --link-hover-color: var(--primary-hover-color);
 
-  /* Liquid Glass Widget Specific Variables */
-  --widget-background-color-liquid: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 35%), rgba(56, 189, 248, 0.08); /* Subtle sheen + base */
-  --widget-border-color-liquid: rgba(56, 189, 248, 0.2); /* Fainter widget border, aligns with --border-color */
-  --widget-backdrop-filter: blur(12px) saturate(110%);
-  --widget-base-shadow-liquid: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 0 0.5px var(--widget-border-color-liquid); /* Softer widget shadow */
-  --widget-hover-shadow-liquid: 0 12px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--widget-border-color-liquid); /* Pronounced but soft hover shadow */
-  --widget-text-color-liquid: var(--text-color); /* Inherits general light text */
-  --widget-heading-color-liquid: var(--heading-color); /* Inherits general light heading */
-  --widget-hover-scale: 1.02; /* More subtle scale on hover */
+  /* Widget Specific Variables for Liquid Glass */
+  --widget-background-color-liquid: rgba(255, 255, 255, 0.65); /* More transparent for widgets */
+  --widget-border-color-liquid: rgba(0, 0, 0, 0.07);
+  --widget-backdrop-filter: blur(24px) saturate(190%); /* Stronger blur for widgets */
+  --widget-base-shadow-liquid: 0 5px 15px rgba(0, 0, 0, 0.08), 0 0 0 0.5px var(--widget-border-color-liquid);
+  --widget-hover-shadow-liquid: 0 10px 25px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--widget-border-color-liquid);
+  --widget-text-color-liquid: var(--text-color);
+  --widget-heading-color-liquid: var(--heading-color);
+  --widget-hover-scale: 1.015; /* Very subtle scale */
 
+  /* API Key Form specific styling */
+  --api-key-form-bg: var(--card-background-color); /* Consistent with cards */
+  --api-key-form-border: var(--border-color);
+  --api-key-form-heading: var(--primary-color); /* Use primary color for emphasis */
 
-  /* Add a subtle background texture or effect if possible */
-  /* background-image: linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.02) 75%, transparent 75%, transparent); */
-  /* background-size: 60px 60px; */
+  /* Status Messages */
+  --status-dev-bg: rgba(255, 229, 186, 0.8); /* Light orange/amber, semi-transparent */
+  --status-dev-text: #bf5700; /* Darker amber text */
+  --status-dev-border: rgba(255, 204, 128, 0.5);
 
-  --api-key-form-bg: rgba(15, 23, 42, 0.7);
-  --api-key-form-border: rgba(56, 189, 248, 0.3);
-  --api-key-form-heading: #7dd3fc; /* Lighter sky */
+  --status-real-active-bg: rgba(204, 245, 204, 0.8); /* Light green, semi-transparent */
+  --status-real-active-text: #006400; /* Dark green text */
+  --status-real-active-border: rgba(135, 236, 135, 0.5);
 
-  --status-dev-bg: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */
-  --status-dev-text: #f0abfc; /* fuchsia-300 */
-  --status-dev-border: rgba(168, 85, 247,0.3); /* purple-500 with opacity */
+  --status-real-inactive-bg: rgba(255, 204, 204, 0.8); /* Light red, semi-transparent */
+  --status-real-inactive-text: #c00; /* Dark red text */
+  --status-real-inactive-border: rgba(255, 153, 153, 0.5);
 
-  --status-real-active-bg: rgba(30, 41, 59, 0.7);
-  --status-real-active-text: #6ee7b7; /* emerald-300 */
-  --status-real-active-border: rgba(16, 185, 129,0.3); /* emerald-500 with opacity */
-
-  --status-real-inactive-bg: rgba(30, 41, 59, 0.7);
-  --status-real-inactive-text: #fda4af; /* rose-300 */
-  --status-real-inactive-border: rgba(244, 63, 94,0.3); /* rose-500 with opacity */
-
-  --code-block-bg: rgba(30, 41, 59, 0.8); /* slate-800 */
-  --code-block-text: #e2e8f0; /* gray-200 */
+  /* Code Block */
+  --code-block-bg: rgba(230, 230, 230, 0.7); /* Light gray, semi-transparent */
+  --code-block-text: #333;
 }
 
+/* Apply backdrop filter for cards in liquid-glass theme */
+[data-theme="liquid-glass"] .App,
+[data-theme="liquid-glass"] .component-section,
+[data-theme="liquid-glass"] .api-key-form {
+  -webkit-backdrop-filter: var(--card-backdrop-filter);
+  backdrop-filter: var(--card-backdrop-filter);
+}
 
 /* Global Resets and Base Styles */
 html {
@@ -228,11 +246,11 @@ input[type="password"] {
   transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-[data-theme="liquid"] input[type="text"],
-[data-theme="liquid"] input[type="password"] {
+[data-theme="liquid-glass"] input[type="text"],
+[data-theme="liquid-glass"] input[type="password"] {
   background-color: var(--input-background-color-liquid);
   border-color: var(--input-border-color-liquid);
-  color: var(--text-color); /* Should be light from theme */
+  color: var(--input-text-color-liquid); /* Use specific text color for liquid-glass inputs */
 }
 
 
@@ -274,22 +292,23 @@ input[type="password"]:focus {
   color: var(--text-color); /* Theme label text color */
 }
 
-[data-theme="liquid"] .dashboard-header button {
-  background-color: rgba(var(--primary-color-rgb), 0.15); /* Translucent primary */
-  border: 1px solid rgba(var(--primary-color-rgb), 0.5);
-  color: var(--primary-color); /* Text color same as border/accent */
+[data-theme="liquid-glass"] .dashboard-header button {
+  background-color: rgba(var(--primary-color-rgb), 0.1); /* Lighter, more translucent for glass */
+  border: 1px solid rgba(var(--primary-color-rgb), 0.3);
+  color: var(--primary-color);
+  font-weight: 500; /* Slightly bolder text for clarity */
 }
 
-[data-theme="liquid"] .dashboard-header button:hover {
-  background-color: rgba(var(--primary-color-rgb), 0.25); /* More subtle hover bg */
-  border-color: rgba(var(--primary-color-rgb), 0.5); /* More subtle hover border */
-  color: #fff; /* Brighter text on hover */
+[data-theme="liquid-glass"] .dashboard-header button:hover {
+  background-color: rgba(var(--primary-color-rgb), 0.2);
+  border-color: rgba(var(--primary-color-rgb), 0.4);
+  color: var(--primary-hover-color); /* Darker primary color text on hover */
   box-shadow: var(--button-hover-shadow);
 }
 
-[data-theme="liquid"] .dashboard-header button:disabled {
-  background-color: rgba(var(--disabled-color-rgb, 51, 65, 85), 0.2); /* Use disabled color with opacity */
-  border-color: rgba(var(--disabled-color-rgb, 51, 65, 85), 0.4);
+[data-theme="liquid-glass"] .dashboard-header button:disabled {
+  background-color: rgba(200, 200, 200, 0.3); /* Light gray, translucent disabled */
+  border-color: rgba(180, 180, 180, 0.3);
   color: var(--disabled-text-color);
 }
 
@@ -471,16 +490,16 @@ pre {
   border: 1px solid var(--border-color); /* Subtle border for widgets */
 }
 
-/* Liquid theme specific styling for widgets */
-[data-theme="liquid"] .widget {
+/* Liquid Glass theme specific styling for widgets */
+[data-theme="liquid-glass"] .widget {
   background-color: var(--widget-background-color-liquid);
-  backdrop-filter: var(--widget-backdrop-filter);
   -webkit-backdrop-filter: var(--widget-backdrop-filter); /* For Safari */
+  backdrop-filter: var(--widget-backdrop-filter);
   border: 1px solid var(--widget-border-color-liquid);
   box-shadow: var(--widget-base-shadow-liquid);
 }
 
-[data-theme="liquid"] .widget:hover {
+[data-theme="liquid-glass"] .widget:hover {
   transform: scale(var(--widget-hover-scale)) translateY(-2px); /* Subtle lift */
   box-shadow: var(--widget-hover-shadow-liquid);
 }

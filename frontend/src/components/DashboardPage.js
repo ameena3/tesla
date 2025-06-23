@@ -79,7 +79,7 @@ const DashboardPage = () => {
             <span>Theme: </span>
             <button onClick={() => changeTheme('light')} disabled={theme === 'light'}>Light</button>
             <button onClick={() => changeTheme('dark')} disabled={theme === 'dark'}>Dark</button>
-            <button onClick={() => changeTheme('liquid')} disabled={theme === 'liquid'}>Liquid Glass</button>
+            <button onClick={() => changeTheme('liquid-glass')} disabled={theme === 'liquid-glass'}>Liquid Glass</button>
           </div>
         </div>
       </header>
